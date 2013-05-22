@@ -1,0 +1,73 @@
+#include "LPC177x_8x_crc.h"
+
+//current CRC type
+volatile CRC_Type crc_cur_type;
+
+//init internal CRC module
+unsigned char CRC_Init(CRC_Type CRCType)
+{
+	if(CRCType == CRC_POLY_CRCCCITT)
+	{
+		LPC_CRC->MODE = 0x00;
+		LPC_CRC->SEED = 0xFFFF;
+		crc_cur_type = CRC_POLY_CRCCCITT;
+	}
+	else if(CRCType == CRC_POLY_CRC16)
+	{
+		LPC_CRC->MODE = 0x15;
+		LPC_CRC->SEED = 0x0000;
+		crc_cur_type = CRC_POLY_CRC16;
+
+	}
+	else if(CRCType == CRC_POLY_CRC32)
+	{
+		LPC_CRC->MODE = 0x36;
+		LPC_CRC->SEED = 0xFFFFFFFF;
+		crc_cur_type = CRC_POLY_CRC32;
+	}
+	else return 1;
+	return 0;
+}
+
+//reset CRC 
+void CRC_Reset(void)
+{
+	if(crc_cur_type == CRC_POLY_CRCCCITT)			LPC_CRC->SEED = 0xFFFF;
+	else if (crc_cur_type == CRC_POLY_CRC16)	LPC_CRC->SEED = 0x0000;
+	else if (crc_cur_type == CRC_POLY_CRC32)	LPC_CRC->SEED = 0xFFFFFFFF;
+}
+
+//calculate CRC of data variable
+uint32_t CRC_CalcDataChecksum(uint32_t data, CRC_WR_SIZE SizeType)
+{
+	if(SizeType == CRC_WR_8BIT)					LPC_CRC->WR_DATA_BYTE = (uint8_t)data;
+	else if(SizeType == CRC_WR_16BIT)		LPC_CRC->WR_DATA_WORD = (uint16_t)data;
+	else LPC_CRC->WR_DATA_DWORD = data;
+	return(LPC_CRC->SUM);
+}
+
+//calculate CRC of data block
+uint32_t CRC_CalcBlockChecksum(void *blockdata, uint32_t blocksize, CRC_WR_SIZE SizeType)
+{
+#if (SizeType == CRC_WR_8BIT)
+        uint8_t *reg, *data;
+        reg = (uint8_t *)&(LPC_CRC->WR_DATA_BYTE);
+        data = (uint8_t *)blockdata;
+#elif (SizeType == CRC_WR_16BIT)
+        uint16_t *reg, *data;
+        reg = (uint16_t *)&(LPC_CRC->WR_DATA_WORD);
+        data = (uint16_t *)blockdata;
+#else
+        uint32_t *reg, *data;
+        reg =  (uint32_t *)&(LPC_CRC->WR_DATA_DWORD);
+        data = (uint32_t *)blockdata;
+#endif
+    while(blocksize >0)
+    {
+			*reg = *data;
+			(data)++;
+			blocksize--;
+    }
+	return(LPC_CRC->SUM);
+}
+
