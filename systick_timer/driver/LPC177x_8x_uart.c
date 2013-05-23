@@ -13,13 +13,12 @@ void InitUART0 (void)
 	LPC_UART0->DLL = 0x8b;				// baudrate divider low register	9600bps, cpu clock 120MHz
 	LPC_UART0->FDR = 0x80;				// fractional baudrate divider ==(1+0)
 	LPC_UART0->LCR = (1<<LCR_WLS0)|(1<<LCR_WLS1);																/* DLAB = 0 */
-	LPC_UART0->FCR = (1<<FCR_FIFOEN)|(1<<FCR_RXFIFORES)|(1<<FCR_TXFIFORES);		/* Enable and clear TX and RX FIFO. */
-  return; 
+	LPC_UART0->FCR = (1<<FCR_FIFOEN)|(1<<FCR_RXFIFORES)|(1<<FCR_TXFIFORES);		/* Enable and clear TX and RX FIFO. */ 
 }
 
 void UART0_clear_rx_buffer(void)
 {
-		LPC_UART0->FCR |= (1<<FCR_RXFIFORES);
+	LPC_UART0->FCR |= (1<<FCR_RXFIFORES);
 }
 
 void UART0SendChar (char x)
@@ -44,7 +43,8 @@ void UART0_dbg_msg (const void *str)
 
 //send hex number via UART0 in 0xHHHHHHHH format
 void UART0_dbg_hex32 (unsigned long int x)
-{ unsigned char i;
+{
+	unsigned char i;
 	unsigned long int temp;
 
 	UART0SendChar('0');
@@ -53,8 +53,8 @@ void UART0_dbg_hex32 (unsigned long int x)
 		{			
 			temp = x>>((8-i-1)*4);
 			temp=temp&0x0000000f;
-			if (temp<0x0a) UART0SendChar(0x30+temp);		//if number 0..9
-								else UART0SendChar(0x37+temp);		//if letter A..F
+			if (temp<0x0a)	UART0SendChar(0x30+temp);		//if number 0..9
+									else UART0SendChar(0x37+temp);		//if letter A..F
 		}
 	UART0SendChar('\n');
 	UART0SendChar('\r');
@@ -82,7 +82,8 @@ unsigned char UART0_dbg_dec (unsigned long int x, unsigned char num)
 
 //get dec number via UART0 in D..D format, num - number digits in res
 unsigned char UART0_get_dec (unsigned long int *res, unsigned char num)
-{ unsigned char val,i;
+{
+	unsigned char val,i;
 	*res=0;
 	for (i=0;i<num;i++)
 		{
