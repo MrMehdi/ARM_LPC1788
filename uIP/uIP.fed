@@ -1,0 +1,67 @@
+;#<FEEDBACK># ARM Linker, 5.03 [Build 24]: Last Updated: Mon May 27 23:15:39 2013
+;VERSION 0.2
+;FILE clock-arch.o
+__asm___12_clock_arch_c_b672aa62____REV16 <= USED 0
+__asm___12_clock_arch_c_b672aa62____REVSH <= USED 0
+;FILE emac.o
+__asm___6_emac_c_e6dd7cab____REV16 <= USED 0
+__asm___6_emac_c_e6dd7cab____REVSH <= USED 0
+;FILE emac_uip.o
+__asm___10_Emac_uIP_c_uip_log____REV16 <= USED 0
+__asm___10_Emac_uIP_c_uip_log____REVSH <= USED 0
+;FILE hello-world.o
+;FILE lpc177x_8x_clkpwr.o
+CLKPWR_DeepPowerDown <= USED 0
+CLKPWR_DeepSleep <= USED 0
+CLKPWR_PowerDown <= USED 0
+CLKPWR_SetCLKDiv <= USED 0
+CLKPWR_Sleep <= USED 0
+__asm___19_lpc177x_8x_clkpwr_c_e699a9d5____REV16 <= USED 0
+__asm___19_lpc177x_8x_clkpwr_c_e699a9d5____REVSH <= USED 0
+;FILE lpc177x_8x_emac.o
+EMAC_CRCCalc <= USED 0
+EMAC_CheckPHYStatus <= USED 0
+EMAC_CheckReceiveDataStatus <= USED 0
+EMAC_DeInit <= USED 0
+EMAC_GetReadPacketBuffer <= USED 0
+EMAC_GetWoLStatus <= USED 0
+EMAC_GetWritePacketBuffer <= USED 0
+EMAC_IntCmd <= USED 0
+EMAC_IntGetStatus <= USED 0
+EMAC_RequestSend <= USED 0
+EMAC_RxDisable <= USED 0
+EMAC_RxEnable <= USED 0
+EMAC_SetFilterMode <= USED 0
+EMAC_SetHashFilter <= USED 0
+EMAC_SetupIntCBS <= USED 0
+EMAC_StandardIRQHandler <= USED 0
+EMAC_TxDisable <= USED 0
+EMAC_TxEnable <= USED 0
+__asm___17_lpc177x_8x_emac_c_60b833e4____REV16 <= USED 0
+__asm___17_lpc177x_8x_emac_c_60b833e4____REVSH <= USED 0
+;FILE lpc177x_8x_uart.o
+UART0GetChar <= USED 0
+UART0_clear_rx_buffer <= USED 0
+UART0_dbg_dec <= USED 0
+UART0_dbg_hex32 <= USED 0
+UART0_get_dec <= USED 0
+__asm___17_LPC177x_8x_uart_c_9ba9785b____REV16 <= USED 0
+__asm___17_LPC177x_8x_uart_c_9ba9785b____REVSH <= USED 0
+;FILE psock.o
+psock_generator_send <= USED 0
+psock_readbuf <= USED 0
+;FILE startup_lpc177x_8x.o
+;FILE system_lpc177x_8x.o
+SystemCoreClockUpdate <= USED 0
+__asm___19_system_LPC177x_8x_c_5d646a67____REV16 <= USED 0
+__asm___19_system_LPC177x_8x_c_5d646a67____REVSH <= USED 0
+;FILE timer.o
+timer_restart <= USED 0
+;FILE uip.o
+uip_chksum <= USED 0
+uip_connect <= USED 0
+uip_setipid <= USED 0
+uip_udpchksum <= USED 0
+uip_unlisten <= USED 0
+;FILE uip_arp.o
+uip_arp_init <= USED 0

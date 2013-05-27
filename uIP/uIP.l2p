@@ -1,0 +1,5 @@
+--cpu Cortex-M3 "startup_lpc177x_8x.o" "core_cm3.o" "system_lpc177x_8x.o" "lpc177x_8x_clkpwr.o" "lpc177x_8x_emac.o" "lpc177x_8x_uart.o" "clock-arch.o" "emac.o" "emac_uip.o" "psock.o" "timer.o" "uip.o" "uip_arp.o" "hello-world.o" 
+--library_type=microlib --strict --scatter "uIP.sct" 
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\uIP.map" -o uIP.axf
