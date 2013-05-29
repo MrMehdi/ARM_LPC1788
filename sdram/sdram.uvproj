@@ -426,6 +426,11 @@
               <FileType>1</FileType>
               <FilePath>.\drivers\LPC177x_8x_uart.c</FilePath>
             </File>
+            <File>
+              <FileName>LPC177x_8x_crc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\drivers\LPC177x_8x_crc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

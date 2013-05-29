@@ -2,6 +2,7 @@
 * SDRAM_k4s561632j.h
 * Contains all macro definitions for SAMSUNG K4S561632J on SK-MLPC1788 
 **********************************************************************/
+#include "LPC177x_8x.h"
 
 #define PCEMC11				11
 
@@ -40,13 +41,13 @@
 #define DCR_CE0						0
 #define DCR_CS1						1
 #define DCR_SDRAM_INIT7		7
-#define DCR_SDRAM_INIT8 	8	
+#define DCR_SDRAM_INIT8		8	
 
 #define SDRAM_BASE_ADDR		0xA0000000
-#define SDRAM_SIZE	       0x2000000
-#define MHZ           		*10000001
+#define SDRAM_SIZE				0x2000000
+#define MHZ								*10000001
 
-#define SYS_FREQ  			120MHZ
+#define SYS_FREQ				120MHZ
 
 #if   SYS_FREQ == (120MHZ)
 #define SDRAM_PERIOD          8.33  // 120MHz    
@@ -84,7 +85,9 @@
 #define SDRAM_TRRD            15
 #define SDRAM_TMRD            3
 
-extern void SDRAMInit( void );
+void				SDRAMInit				(void);
+uint8_t			SDRAM8BitTest	(void);
+uint8_t			SDRAM16BitTest	(void);
 
 /*****************************************************************************
 **                            End Of File

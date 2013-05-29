@@ -1,6 +1,8 @@
 #include "LPC177x_8x.h"
 #include "LPC177x_8x_IOCON.h"
 #include "sdram_k4s561632j.h"
+#include "LPC177x_8x_crc.h"
+#include "stdlib.h"
 
 /*********************************************************************//*
  * Initialize external SDRAM memory Samsung k4s561632j on SK-MLPC1788 
@@ -89,7 +91,7 @@ void SDRAMInit( void )
 	//Set refresh frequency for normal operation
 	LPC_EMC->DynamicRefresh = P2C(SDRAM_REFRESH) >> 4;
 	// SDRAM PALL command
-  LPC_EMC->DynamicControl = (1<<DCR_CE0)|(1<<DCR_CS1)|(1<<DCR_SDRAM_INIT7);
+	LPC_EMC->DynamicControl = (1<<DCR_CE0)|(1<<DCR_CS1)|(1<<DCR_SDRAM_INIT7);
 	// Issue mode register, mode=0x33 (sequental burst size 8, CAS latency 3)
 	// 0xA000 0000 + (0x33 << (2 + 9 + 1)) = 0xA000 0000 + 0x33000 = 0xA003 3000
 	Dummy = *((volatile uint32_t *)(SDRAM_BASE_ADDR+(0x33<<12)));
@@ -99,6 +101,56 @@ void SDRAMInit( void )
 	LPC_EMC->DynamicConfig0 = (1<<DMC_AM7)|(1<<DMC_AM9)|(1<<DMC_AM10)|(1<<DMC_B19);
 	for(i = 100000; i;i--);
 }
-/*********************************************************************************
-**                            End Of File
-*********************************************************************************/
+
+uint8_t SDRAM8BitTest (void)
+{
+	uint16_t  crc1, crc2;
+	uint8_t x;
+	volatile uint8_t *wr_ptr;
+  volatile unsigned long int l;
+	//Init CRC engine
+	CRC_Init(CRC_POLY_CRCCCITT);
+	//Write random byte data to SDRAM from 0xA0000000 to 0xA2000000 address
+  wr_ptr = (uint8_t *)SDRAM_BASE_ADDR;		
+  for (l=0; l<0x02000000; l++)
+		{
+		x=rand();
+		*wr_ptr = x;					
+		//calculate CRC1
+		crc1=CRC_CalcDataChecksum (x,CRC_WR_8BIT);
+		wr_ptr++;
+		} 
+	//Reset CRC engine
+	CRC_Reset();
+	//Calculate CRC2
+	crc2=CRC_CalcBlockChecksum((void *)SDRAM_BASE_ADDR,0x02000000,CRC_WR_8BIT);	
+	//Compare CRC1 and CRC2
+  if(crc1 != crc2)	return 0;
+							else	return 1;
+}
+
+uint8_t SDRAM16BitTest (void)
+{
+	uint16_t x, crc1, crc2;
+	volatile uint16_t *wr_ptr;
+  volatile unsigned long int l;
+	//Init CRC engine
+	CRC_Init(CRC_POLY_CRC16);
+	//Write random word data to SDRAM from 0xA0000000 to 0xA2000000 address
+  wr_ptr = (uint16_t *)SDRAM_BASE_ADDR;		
+  for (l=0; l<0x01000000; l++)
+		{
+		x=rand();
+		*wr_ptr = x;					
+		//calculate CRC1
+		crc1=CRC_CalcDataChecksum (x,CRC_WR_16BIT);
+		wr_ptr++;
+		} 
+	//Reset CRC engine
+	CRC_Reset();
+	//Calculate CRC2
+	crc2=CRC_CalcBlockChecksum((void *)SDRAM_BASE_ADDR,0x01000000,CRC_WR_16BIT);	
+	//Compare CRC1 and CRC2
+  if(crc1 != crc2)	return 0;
+							else	return 1;
+}
