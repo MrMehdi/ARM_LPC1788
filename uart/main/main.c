@@ -3,41 +3,33 @@
 
 int main(void)
 {	
-unsigned char mode=0;
-char user_answer; 
-	
+uint32_t val;
+char s[100];
+
 InitUART0();
-UART0_dbg_msg("Main Menu,\r\nPress '1' for enter to SubMenu #1\r\nPress '2' for enter to SubMenu #2\n\r");
-while(1)
-{	
-	while (mode==0)
+	
+UART0_dbg_msg (
+"********************************************************************************\n\r"
+" Internal UART0 test on LPC1788\n\r"
+"\t - UART Comunication: 9600 bps\n\r"
+"********************************************************************************\n\r"); 
+
+UART0_dbg_hex32 (0x12345678);
+UART0_dbg_dec (1234,5);
+
+UART0_dbg_msg ("Input 4 digit dec\n\r");
+if (UART0_get_dec (&val,4)) 
 	{
-		user_answer = UART0GetChar();
-		if (user_answer=='1') {
-														mode=1;
-														UART0_dbg_msg("SubMenu #1\r\nPress 'q' for exit to main menu\n\r");
-													}
-		if (user_answer=='2') {
-														mode=2;
-														UART0_dbg_msg("SubMenu #2\r\nPress 'q' for exit to main menu\n\r");
-													}		
+		UART0_dbg_msg ("Captured dec\n\r");
+		UART0_dbg_dec (val,5);
 	}
-	while (mode==1)
-	{
-		user_answer = UART0GetChar(); 
-		if (user_answer=='q') {
-														mode=0;
-														UART0_dbg_msg("Main Menu,\r\nPress '1' for enter to SubMenu #1\r\nPress '2' for enter to SubMenu #2\n\r");
-													}
-	}
-	while (mode==2) 
-	{
-		user_answer = UART0GetChar();
-		if (user_answer=='q') {
-														mode=0;
-														UART0_dbg_msg("Main Menu,\r\nPress '1' for enter to SubMenu #1\r\nPress '2' for enter to SubMenu #2\n\r");
-													}
-	}
-}
-		
+else UART0_dbg_msg ("Error\n\r");
+	
+UART0_dbg_msg ("Input string, max 100 symbols\n\r");
+UART0_get_line (s,100);
+UART0_dbg_msg ("String:\n\r");
+UART0_dbg_msg (s);
+	
+while (1)
+	;
 }
