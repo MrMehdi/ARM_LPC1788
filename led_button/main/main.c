@@ -9,19 +9,17 @@ void InitPorts (void)
 	//setup GPIO registers
 	LPC_GPIO2->CLR = (1<<GPIO2_pin8);
 	LPC_GPIO2->DIR = (1<<GPIO2_pin8)|(0<<GPIO2_pin11);
-  return;
 }
 
-void bad_pause (long int x)
+void bad_pause (uint32_t x)
 {
-	unsigned long int i;
+	uint32_t i;
 	for (i=0;i<x;i++) ; 
-	return;
 }
  
 int main(void)
 {	
-unsigned char mode=0;
+uint8_t mode=0;
 	
 InitPorts();	
 while(1)
