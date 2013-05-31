@@ -6,8 +6,8 @@
 
 int main(void)
 {
-	int count, second=0;
-	unsigned long val;
+	uint8_t count, second=0;
+	uint32_t val;
 	InitUART0 ();
 	InitRTC();	
 	UART0_dbg_msg (
@@ -16,8 +16,11 @@ int main(void)
 	"\t - UART Comunication: 9600 bps \n\r"
 	" Write to debug console current voltage on AD[2]-AD[3]\n\r"
 	"********************************************************************************\n\r");
-	while (InitADC (2))
-		UART0_dbg_msg ("InitADC exception, channel must be 0..7\n\r");
+	if (!InitADC (2))
+		{
+			UART0_dbg_msg ("InitADC exception, channel must be 0..7\n\r");
+			while (1);
+		}
 	InitDAC (0x03FF);
 	while (1) 
 	{
@@ -25,7 +28,7 @@ int main(void)
 		do
 		{
 		UART0_dbg_msg ("Input DAC value in range 0..1023, as a sample 0983\n\r");
-		while (UART0_get_dec (&val,4)) 
+		while (!UART0_get_dec (&val,4)) 
 			UART0_dbg_msg ("DAC value is 10-bit number\n\r");
 		if (val>1024) {
 										UART0_dbg_msg ("DAC value isn't in range 0..1023\n\r");
