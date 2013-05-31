@@ -38,7 +38,7 @@ void BMP085_read_CAL_data (BMP085_CAL_DATA_STRUCT *CAL_DATA)
 		StopI2C0();
 }
 
-void BMP085_read_sensor (BMP085_CAL_DATA_STRUCT *CAL_DATA, long* temperature, long* pressure, uint8_t oss)
+void BMP085_read_sensor (const BMP085_CAL_DATA_STRUCT *CAL_DATA, long* temperature, long* pressure, uint8_t oss)
 {	uint8_t tmp1,tmp2,tmp3;
 	long x1,x2,x3,b3,b5,b6,ut,up,p;
 	unsigned long b4,b7;

@@ -13,9 +13,9 @@ LPC177x_8x_adc.h basic definitions
 
 #define ADGDR_DONE31	31
 
-uint8_t		InitADC	(uint8_t channel);
+uint8_t		InitADC	(const uint8_t channel);
 uint16_t	GetADC	(void);
-void			ADC_dbg	(uint16_t val);
+void			ADC_dbg	(const uint16_t val);
 /*****************************************************************************
 End Of File
 ******************************************************************************/

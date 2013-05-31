@@ -2,7 +2,7 @@
 #include "LPC177x_8x_uart.h"
 #include "LPC177x_8x_adc.h"
 
-uint8_t InitADC (uint8_t channel)
+uint8_t InitADC (const uint8_t channel)
 {  
 	//Power up ADC through PCONP
 	LPC_SC->PCONP |=(1<<PCONP_PCADC);
@@ -35,7 +35,7 @@ uint16_t GetADC(void)
  return ((val>>4)&0x00000fff);		//trim result
 }
 
-void ADC_dbg (uint16_t val)
+void ADC_dbg (const uint16_t val)
 { uint32_t res;
 	res=3300*val/4096;
 	UART0_dbg_dec (res,4);

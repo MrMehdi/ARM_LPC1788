@@ -10,7 +10,7 @@ void EEPROM_Init(void)
 	LPC_EEPROM->WSTATE = (WSATAE_PHASE3)|(WSTATE_PHASE2<<8)|(WSTATE_PHASE1<<16);
 }
 
-uint8_t EEPROM_Write(const uint16_t page_off, const uint16_t page_addr, void* data, const EEPROM_Mode_Type mode, const uint32_t count)
+uint8_t EEPROM_Write(const uint16_t page_off, const uint16_t page_addr, const void* data, const EEPROM_Mode_Type mode, const uint32_t count)
 {
 	uint32_t i;
 	uint16_t page_offset, page_address;

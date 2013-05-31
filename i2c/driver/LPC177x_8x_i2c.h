@@ -13,12 +13,12 @@ LPC177x_8x_i2c.h basic definitions
 
 #define I2C_STAT_BITMASK 0xf8
 
-void InitI2C0 (void);
-void StartI2C0 (void);
-void StopI2C0 (void);
-void SendByteI2C0 (uint8_t data);
-uint8_t ReceiveByteI2C0_w_ACK (void);
-uint8_t ReceiveByteI2C0_wo_ACK (void);
+void		InitI2C0 (void);
+void		StartI2C0 (void);
+void		StopI2C0 (void);
+void		SendByteI2C0 (const uint8_t data);
+uint8_t	ReceiveByteI2C0_w_ACK (void);
+uint8_t	ReceiveByteI2C0_wo_ACK (void);
 
 /*****************************************************************************
 End Of File

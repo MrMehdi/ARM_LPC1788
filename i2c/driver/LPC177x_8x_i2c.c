@@ -37,7 +37,7 @@ void StopI2C0 (void)
 	LPC_I2C0->CONSET = (1<<CON_STO);
 }
 
-void SendByteI2C0 (uint8_t data)
+void SendByteI2C0 (const uint8_t data)
 {
 	//Make sure start bit is not active 
 	if ((LPC_I2C0->CONSET&(1<<CON_STA)) != 0x00) LPC_I2C0->CONCLR = (1<<CON_STA);

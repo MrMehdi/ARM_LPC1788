@@ -17,7 +17,7 @@ typedef struct
  short MD; }  BMP085_CAL_DATA_STRUCT;
 
 void BMP085_read_CAL_data (BMP085_CAL_DATA_STRUCT *CAL_DATA);
-void BMP085_read_sensor (BMP085_CAL_DATA_STRUCT *CAL_DATA, long* temperature, long* pressure, uint8_t oss);
+void BMP085_read_sensor (const BMP085_CAL_DATA_STRUCT *CAL_DATA, long* temperature, long* pressure, uint8_t oss);
 /*****************************************************************************
 End Of File
 ******************************************************************************/
