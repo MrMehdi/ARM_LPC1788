@@ -59,9 +59,9 @@ typedef enum
 #define EEPROM_ENDOF_PROG				(28)
 
 void EEPROM_Init(void);
-uint8_t EEPROM_Write(uint16_t page_offset, uint16_t page_address, void* data, EEPROM_Mode_Type mode, uint32_t count);
-uint8_t EEPROM_Read(uint16_t page_offset, uint16_t page_address, void* data, EEPROM_Mode_Type mode, uint32_t count);
-void EEPROM_Erase(uint32_t address);
+uint8_t EEPROM_Write(const uint16_t page_off, const uint16_t page_addr, void* data, const EEPROM_Mode_Type mode, const uint32_t count);
+uint8_t EEPROM_Read(const uint16_t page_off, const uint16_t page_addr, void* data, const EEPROM_Mode_Type mode, const uint32_t count);
+void EEPROM_Erase(const uint32_t address);
 
 /*****************************************************************************
 End Of File

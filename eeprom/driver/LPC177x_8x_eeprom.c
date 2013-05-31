@@ -10,9 +10,10 @@ void EEPROM_Init(void)
 	LPC_EEPROM->WSTATE = (WSATAE_PHASE3)|(WSTATE_PHASE2<<8)|(WSTATE_PHASE1<<16);
 }
 
-uint8_t EEPROM_Write(uint16_t page_offset, uint16_t page_address, void* data, EEPROM_Mode_Type mode, uint32_t count)
+uint8_t EEPROM_Write(const uint16_t page_off, const uint16_t page_addr, void* data, const EEPROM_Mode_Type mode, const uint32_t count)
 {
 	uint32_t i;
+	uint16_t page_offset, page_address;
 #if (mode == MODE_8_BIT)
         uint8_t *tmp = (uint8_t *)data;
 #elif (mode == MODE_16_BIT)
@@ -20,11 +21,13 @@ uint8_t EEPROM_Write(uint16_t page_offset, uint16_t page_address, void* data, EE
 #else
         uint32_t *tmp = (uint32_t *)data;
 #endif
+	page_offset = page_off;
+	page_address=page_addr;
 	//clear EEPROM and of RW and PROGRAM flags
 	LPC_EEPROM->INT_CLR_STATUS = ((1 << EEPROM_ENDOF_RW)|(1 << EEPROM_ENDOF_PROG));
 	//check page_offset
-	if ((mode == MODE_16_BIT)&&((page_offset & 0x01)!=0) ) return 1;
-	else if ((mode == MODE_32_BIT)&&((page_offset & 0x03)!=0)) return 1;
+	if ((mode == MODE_16_BIT)&&((page_offset & 0x01)!=0) ) return 0;
+	else if ((mode == MODE_32_BIT)&&((page_offset & 0x03)!=0)) return 0;
 	//setup EEPROM address register
 	LPC_EEPROM->ADDR = EEPROM_PAGE_OFFSET(page_offset);
 	//clear EEPROM and of RW flag
@@ -67,12 +70,13 @@ uint8_t EEPROM_Write(uint16_t page_offset, uint16_t page_address, void* data, EE
 			if(page_address > EEPROM_PAGE_NUM - 1) page_address = 0;
 		}
 	}
- return 0;
+ return 1;
 }
 
-uint8_t EEPROM_Read(uint16_t page_offset, uint16_t page_address, void* data, EEPROM_Mode_Type mode, uint32_t count)
+uint8_t EEPROM_Read(const uint16_t page_off, const uint16_t page_addr, void* data, const EEPROM_Mode_Type mode, const uint32_t count)
 {
-    uint32_t i;
+	uint32_t i;
+	uint16_t page_offset, page_address;
 #if (mode == MODE_8_BIT)
         uint8_t *tmp = (uint8_t *)data;
 #elif (mode == MODE_16_BIT)
@@ -80,6 +84,8 @@ uint8_t EEPROM_Read(uint16_t page_offset, uint16_t page_address, void* data, EEP
 #else
         uint32_t *tmp = (uint32_t *)data;
 #endif
+	page_offset = page_off;
+	page_address=page_addr;
 	//clear EEPROM and of RW and PROGRAM flags
 	LPC_EEPROM->INT_CLR_STATUS = ((1 << EEPROM_ENDOF_RW)|(1 << EEPROM_ENDOF_PROG));
 	//setup address register
@@ -89,12 +95,12 @@ uint8_t EEPROM_Read(uint16_t page_offset, uint16_t page_address, void* data, EEP
 	else if(mode == MODE_16_BIT){
 		LPC_EEPROM->CMD = EEPROM_CMD_16_BIT_READ|EEPROM_CMD_RDPREFETCH;
 		//check page_offset
-		if((page_offset &0x01)!=0) return 1;
+		if((page_offset &0x01)!=0) return 0;
 	}
 	else{
 		LPC_EEPROM->CMD = EEPROM_CMD_32_BIT_READ|EEPROM_CMD_RDPREFETCH;
 		//page_offset must be a multiple of 0x04
-		if((page_offset & 0x03)!=0) return 1;
+		if((page_offset & 0x03)!=0) return 0;
 	}
 	//read and store data in buffer
 	for(i=0;i<count;i++)
@@ -129,10 +135,10 @@ uint8_t EEPROM_Read(uint16_t page_offset, uint16_t page_address, void* data, EEP
 			 else LPC_EEPROM->CMD = EEPROM_CMD_32_BIT_READ|EEPROM_CMD_RDPREFETCH;
 			}
 	}
- return 0;
+ return 1;
 }
 
-void EEPROM_Erase(uint32_t address)
+void EEPROM_Erase(const uint32_t address)
 {
 	uint32_t i;
 	//clear page register

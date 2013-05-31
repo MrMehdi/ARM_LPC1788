@@ -6,7 +6,7 @@
 
 int main(void)
 {	uint8_t read_buffer[] ="";
-	uint8_t write_buffer[]="HELLO EEPROM!!!";
+	char write_buffer[]="HELLO EEPROM!!!";
 	
 	InitUART0 ();
 	UART0_dbg_msg (
@@ -17,14 +17,16 @@ int main(void)
 	"********************************************************************************\n\r");
 	EEPROM_Init();	
 	UART0_dbg_msg ("Write buffer to EEPROM\n\r"); 
-	while (EEPROM_Write(PAGE_OFFSET,PAGE_ADDR,(void*)write_buffer,MODE_8_BIT,sizeof(write_buffer)))
+	while (!EEPROM_Write(PAGE_OFFSET,PAGE_ADDR,(void*)write_buffer,MODE_8_BIT,sizeof(write_buffer)))
 		UART0_dbg_msg ("EEPROM_Write exception\n\r");
 	//Program data	
 	UART0_dbg_msg ("Read data from EEPROM, data buffer contain\n\r");
-	while (EEPROM_Read(PAGE_OFFSET,PAGE_ADDR,(void*)read_buffer,MODE_8_BIT,sizeof(write_buffer)))
+	while (!EEPROM_Read(PAGE_OFFSET,PAGE_ADDR,(void*)read_buffer,MODE_8_BIT,sizeof(write_buffer)))
 		UART0_dbg_msg ("EEPROM_Read exception\n\r");
 	//display eeprom data
 	UART0_dbg_msg (read_buffer);
 	UART0_dbg_msg ("\n\rend of demo\n\r");
+	UART0_dbg_msg ("Erase page with buffer in EEPROM\n\r"); 
+	EEPROM_Erase(PAGE_ADDR);
 	while(1);
 }
