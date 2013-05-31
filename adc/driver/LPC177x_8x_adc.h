@@ -1,6 +1,7 @@
 /****************************************************************************
 LPC177x_8x_adc.h basic definitions
 ****************************************************************************/
+#include "LPC177x_8x.h"
 
 #define PCONP_PCADC 	12
 
@@ -12,9 +13,9 @@ LPC177x_8x_adc.h basic definitions
 
 #define ADGDR_DONE31	31
 
-unsigned char InitADC (char channel);
-unsigned int GetADC(void);
-void ADC_dbg (unsigned int val);
+uint8_t		InitADC	(uint8_t channel);
+uint16_t	GetADC	(void);
+void			ADC_dbg	(uint16_t val);
 /*****************************************************************************
 End Of File
 ******************************************************************************/
