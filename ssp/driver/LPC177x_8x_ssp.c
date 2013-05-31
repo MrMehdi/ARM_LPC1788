@@ -1,13 +1,13 @@
 #include "LPC177x_8x_ssp.h"
 #include "LPC177x_8x_IOCON.h"
 
-void SetSSP1BitMode (uint8_t mode)
+void SetSSP1BitMode (const uint8_t mode)
 {
 	LPC_SSP1->CR0 &= 0xfffffff0;
 	LPC_SSP1->CR0 |= ((mode-1)&0x0f);
 }
 
-void SetSSP1ClockRate (uint8_t SCR, uint8_t CPSDVSR)
+void SetSSP1ClockRate (const uint8_t SCR, const uint8_t CPSDVSR)
 {
 	LPC_SSP1->CR0 &= 0xffff00ff;
 	LPC_SSP1->CR0 |= (SCR<<8);
@@ -43,7 +43,7 @@ void InitSSP1 (void)
 	ClearSSP1RXFIFO();
 }
 
-void SSP1_SendByte (uint8_t data) 
+void SSP1_SendByte (const uint8_t data) 
 {
 	while ( (LPC_SSP1->SR&(1<<SSP1_SRTNF)) == 0x00 ) ;
 	LPC_SSP1->DR = data;

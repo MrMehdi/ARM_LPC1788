@@ -13,11 +13,11 @@ LPC177x_8x_ssp.h basic definitions
 #define	SSP1_SRRNE			2
 #define SSP1_SRBUSY		 	4
 
-void SetSSP1BitMode (uint8_t mode);
-void SetSSP1ClockRate (uint8_t SCR, uint8_t CPSDVSR);
+void SetSSP1BitMode (const uint8_t mode);
+void SetSSP1ClockRate (const uint8_t SCR, const uint8_t CPSDVSR);
 void ClearSSP1RXFIFO (void);
 void InitSSP1 (void);
-void SSP1_SendByte (uint8_t data);
+void SSP1_SendByte (const uint8_t data);
 uint8_t SSP1_ReceiveByte (void);
 
 /*****************************************************************************

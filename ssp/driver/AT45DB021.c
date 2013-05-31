@@ -19,11 +19,13 @@ uint8_t AT45DB021_ReadStatus (void)
 	return SSP1_ReceiveByte();
 }
 
-uint8_t AT45DB021_ReadBlock (uint8_t *data, uint32_t address, uint32_t length)
+uint8_t AT45DB021_ReadBlock (uint8_t *data, const uint32_t address, const uint32_t len)
 { 
 	uint16_t page,byte;
+	uint32_t length;
+	length = len;
 	//If incorrect intup data - exit
-	if ((address+length)>(PAGE_SIZE*PAGE_COUNT)) return 1;
+	if ((address+length)>(PAGE_SIZE*PAGE_COUNT)) return 0;
 	//Calculate page and byte address
 	page = address / PAGE_SIZE;
 	byte = address - page*PAGE_SIZE;
@@ -71,13 +73,15 @@ uint8_t AT45DB021_ReadBlock (uint8_t *data, uint32_t address, uint32_t length)
 		page++;
 		byte=0;
 	}
-	return 0;
+	return 1;
 }
 
-uint8_t AT45DB021_WriteBlock (uint8_t *data, uint32_t address, uint32_t length)
+uint8_t AT45DB021_WriteBlock (const uint8_t *data, const uint32_t address, const uint32_t len)
 {	uint16_t page,byte;
+	uint32_t length;
+	length =len;
 	//If incorrect intup data - exit
-	if ((address+length)>(PAGE_SIZE*PAGE_COUNT)) return 1;
+	if ((address+length)>(PAGE_SIZE*PAGE_COUNT)) return 0;
 	//Calculate page and byte address
 	page = address / PAGE_SIZE;
 	byte = address - page*PAGE_SIZE;
@@ -134,13 +138,15 @@ uint8_t AT45DB021_WriteBlock (uint8_t *data, uint32_t address, uint32_t length)
 		page++;
 		byte=0;
 	}
-	return 0;
+	return 1;
 }
 
-uint8_t AT45DB021_EraseBlock (uint32_t address, uint32_t length)
+uint8_t AT45DB021_EraseBlock (const uint32_t address, const uint32_t len)
 {	uint16_t page,byte;
+	uint32_t length;
+	length = len;
 	//If incorrect intup data - exit
-	if ((address+length)>(PAGE_SIZE*PAGE_COUNT)) return 1;
+	if ((address+length)>(PAGE_SIZE*PAGE_COUNT)) return 0;
 	//Calculate page and byte address
 	page = address / PAGE_SIZE;
 	byte = address - page*PAGE_SIZE;
@@ -196,5 +202,5 @@ uint8_t AT45DB021_EraseBlock (uint32_t address, uint32_t length)
 		page++;
 		byte=0;
 	}
-	return 0;
+	return 1;
 }

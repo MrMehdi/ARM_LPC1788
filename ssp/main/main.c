@@ -14,13 +14,13 @@ int main(void)
 	"********************************************************************************\n\r");	
 	InitSSP1();	
 	UART0_dbg_msg ("Writing 10 bytes {1,2,3,4,5,6,7,8,9,10} from 260 absolute address to AT45DB021\n\r");
-  if (AT45DB021_WriteBlock(temp,260,10) == 0x00 ) UART0_dbg_msg ("Write successfull\n\r");
+  if (AT45DB021_WriteBlock(temp,260,10) == 0x01 ) UART0_dbg_msg ("Write successfull\n\r");
 																					else 	{
 																									UART0_dbg_msg ("Write failed\n\r");
 																									while (1) ;
 																								}
 	UART0_dbg_msg ("Reading 10 bytes from 260 absolute address from AT45DB021\n\r");
-  if (AT45DB021_ReadBlock(temp,260,10) == 0x00 ) 	{
+  if (AT45DB021_ReadBlock(temp,260,10) == 0x01 ) 	{
 																										UART0_dbg_msg ("Read successfull, data:\n\r");	
 																											for (i=0;i<10;i++)
 																												UART0_dbg_hex32(temp[i]);
@@ -31,13 +31,13 @@ int main(void)
 																									}
 																									
 	UART0_dbg_msg ("Erasing 10 bytes from 260 absolute address from AT45DB021\n\r");
-  if (AT45DB021_EraseBlock(260,10) == 0x00 ) 		UART0_dbg_msg ("Erase successfull\n\r");																					
+  if (AT45DB021_EraseBlock(260,10) == 0x01 ) 		UART0_dbg_msg ("Erase successfull\n\r");																					
 																				else 	{
 																								UART0_dbg_msg ("Erase failed\n\r");
 																								while (1) ;
 																							}																																														
 	UART0_dbg_msg ("Reading 10 bytes from 260 absolute address from AT45DB021\n\r");
-  if (AT45DB021_ReadBlock(temp,260,10) == 0x00 ) 	{
+  if (AT45DB021_ReadBlock(temp,260,10) == 0x01 ) 	{
 																										UART0_dbg_msg ("Read successfull, data:\n\r");	
 																											for (i=0;i<10;i++)
 																												UART0_dbg_hex32(temp[i]);
