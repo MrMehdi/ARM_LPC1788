@@ -13,11 +13,11 @@ typedef enum
 #define STCTRL_CLKSOURCE2			2
 #define STCTRL_COUNTFLAG16		16
 
-void SYSTICK_Init(void);
-void SYSTICK_Cmd(TICK_STATE NewState);
-uint32_t SYSTICK_GetCurrentValue(void);
-void SYSTICK_ClearCounterFlag(void);
-void delay_sec (uint8_t second);
+void			SYSTICK_Init(void);
+void			SYSTICK_Cmd(const TICK_STATE NewState);
+uint32_t	SYSTICK_GetCurrentValue(void);
+void			SYSTICK_ClearCounterFlag(void);
+void			delay_sec (const uint8_t second);
 /*****************************************************************************
 End Of File
 ******************************************************************************/

@@ -8,7 +8,7 @@ void SYSTICK_Init(void)
 }
 
 //On/Off SysTick timer
-void SYSTICK_Cmd(TICK_STATE NewState)
+void SYSTICK_Cmd(const TICK_STATE NewState)
 {
 	if (NewState == ON) SysTick->CTRL|=(1<<STCTRL_ENABLE0);
 								else	SysTick->CTRL&=~(1<<STCTRL_ENABLE0);
@@ -27,7 +27,7 @@ void SYSTICK_ClearCounterFlag(void)
 }
 
 //delay in seconds
-void delay_sec (uint8_t second)
+void delay_sec (const uint8_t second)
 {
 	uint16_t count;
 	count = second*100;
