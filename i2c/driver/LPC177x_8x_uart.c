@@ -1,5 +1,11 @@
+#include "ctype.h"
 #include "LPC177x_8x_IOCON.h"
 #include "LPC177x_8x_uart.h"
+
+#define MAX_UNGETCH_BUF 10
+
+volatile static char buf[MAX_UNGETCH_BUF];
+volatile static uint8_t bufc=0;
 
 void InitUART0 (void)
 {  
@@ -28,8 +34,22 @@ void UART0SendChar (const char x)
 
 char UART0GetChar (void)
 { 
-	while (!(LPC_UART0->LSR&(1<<LSR_RDR))) ;
-	return (LPC_UART0->RBR&0x000000ff);
+	if (bufc!=0) 
+		{
+			bufc--;
+			return buf[bufc];
+		}
+	else 
+		{
+			while (!(LPC_UART0->LSR&(1<<LSR_RDR))) ;
+			return (LPC_UART0->RBR&0x000000ff);
+		}
+}
+
+void UART0UnGetChar(const char val)
+{
+	buf[bufc]=val;
+	bufc++;
 }
 
 //send string message via UART0
@@ -76,8 +96,8 @@ uint8_t UART0_dbg_dec (const uint32_t x, const uint8_t num)
 		var=var-res*temp;
 		UART0SendChar('0'+res);
 	}
-//	UART0SendChar('\n');
-//	UART0SendChar('\r');
+	//UART0SendChar('\n');
+	//UART0SendChar('\r');
 	return 1;
 }
 
@@ -85,6 +105,9 @@ uint8_t UART0_dbg_dec (const uint32_t x, const uint8_t num)
 uint8_t UART0_get_dec (uint32_t *res, const uint8_t num)
 { uint8_t val,i;
 	*res=0;
+	
+	while ( isspace(val=UART0GetChar())) ;
+	 UART0UnGetChar(val);
 	for (i=0;i<num;i++)
 		{
 			val=UART0GetChar();

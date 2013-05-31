@@ -18,6 +18,7 @@ void 		InitUART0 (void);
 void 		UART0_clear_rx_buffer(void);
 void 		UART0SendChar (const char x);
 char 		UART0GetChar (void);
+void 		UART0UnGetChar(const char val);
 void 		UART0_dbg_msg (const void *str);
 void 		UART0_dbg_hex32 (const uint32_t x);
 uint8_t	UART0_dbg_dec (const uint32_t x, const uint8_t num);
