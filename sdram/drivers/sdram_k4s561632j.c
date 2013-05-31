@@ -9,7 +9,7 @@
  * 256Mbit(16M x 16)
  **********************************************************************/
  
-void SDRAMInit( void )
+void SDRAMInit(void)
 {
 	volatile uint32_t i;
 	volatile unsigned long Dummy;
@@ -114,7 +114,7 @@ uint8_t SDRAM8BitTest (void)
   wr_ptr = (uint8_t *)SDRAM_BASE_ADDR;		
   for (l=0; l<0x02000000; l++)
 		{
-		x=rand();
+		x=(uint8_t)rand();
 		*wr_ptr = x;					
 		//calculate CRC1
 		crc1=CRC_CalcDataChecksum (x,CRC_WR_8BIT);
@@ -140,7 +140,7 @@ uint8_t SDRAM16BitTest (void)
   wr_ptr = (uint16_t *)SDRAM_BASE_ADDR;		
   for (l=0; l<0x01000000; l++)
 		{
-		x=rand();
+		x= (uint16_t) rand();
 		*wr_ptr = x;					
 		//calculate CRC1
 		crc1=CRC_CalcDataChecksum (x,CRC_WR_16BIT);

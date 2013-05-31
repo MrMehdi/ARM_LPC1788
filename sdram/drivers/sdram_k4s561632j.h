@@ -86,7 +86,7 @@
 #define SDRAM_TMRD            3
 
 void				SDRAMInit				(void);
-uint8_t			SDRAM8BitTest	(void);
+uint8_t			SDRAM8BitTest		(void);
 uint8_t			SDRAM16BitTest	(void);
 
 /*****************************************************************************

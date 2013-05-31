@@ -19,7 +19,7 @@ while (1)
 {		
 	UART0_dbg_msg ("Testing SDRAM, 0x00000000 to 0x02000000 8-bit mode\n\r");
   if(SDRAM8BitTest())	{
-												UART0_dbg_msg ("Succss\n\r");	
+												UART0_dbg_msg ("Success\n\r");	
 												num_success++;
 											}
 							else		{
@@ -29,7 +29,7 @@ while (1)
 											}
 	UART0_dbg_msg ("Testing SDRAM, 0x00000000 to 0x02000000 16-bit mode\n\r");
   if(SDRAM16BitTest()) {
-													UART0_dbg_msg ("Succss\n\r");
+													UART0_dbg_msg ("Success\n\r");
 													num_success++;
 												}
 							else			{
