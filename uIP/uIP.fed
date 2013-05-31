@@ -1,4 +1,4 @@
-;#<FEEDBACK># ARM Linker, 5.03 [Build 24]: Last Updated: Mon May 27 23:15:39 2013
+;#<FEEDBACK># ARM Linker, 5.03 [Build 24]: Last Updated: Fri May 31 15:27:27 2013
 ;VERSION 0.2
 ;FILE clock-arch.o
 __asm___12_clock_arch_c_b672aa62____REV16 <= USED 0
@@ -45,6 +45,7 @@ UART0_clear_rx_buffer <= USED 0
 UART0_dbg_dec <= USED 0
 UART0_dbg_hex32 <= USED 0
 UART0_get_dec <= USED 0
+UART0_get_line <= USED 0
 __asm___17_LPC177x_8x_uart_c_9ba9785b____REV16 <= USED 0
 __asm___17_LPC177x_8x_uart_c_9ba9785b____REVSH <= USED 0
 ;FILE psock.o

@@ -2,7 +2,7 @@
 #include "LPC177x_8x_pwm.h"
 
 //Init PWM0.1 cycle,prescaller, match
-void InitPWM0 (uint32_t MR0, uint32_t PR, uint32_t MR1)
+void InitPWM0 (const uint32_t MR0, const uint32_t PR, const uint32_t MR1)
 {  
 	LPC_SC->PCONP |= (1<<PCONP_PWM0);
 	LPC_IOCON->P3_16 = (1<<PX_Y_IOCON_FUNC1)|(1<<PX_Y_IOCON_HYS5);
@@ -16,7 +16,7 @@ void InitPWM0 (uint32_t MR0, uint32_t PR, uint32_t MR1)
 }
 
 //Set PWM0.1 cycle,prescaller, match
-void SetPWM0 (uint32_t MR0, uint32_t PR, uint32_t MR1)
+void SetPWM0 (const uint32_t MR0, const uint32_t PR, const uint32_t MR1)
 {
 	LPC_PWM0->MR0 = MR0;
 	LPC_PWM0->MR1 = MR1;

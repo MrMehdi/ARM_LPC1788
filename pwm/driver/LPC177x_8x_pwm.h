@@ -16,8 +16,8 @@ LPC177x_8x_pwm.h basic definitions
 
 #define PWM0_PWMENA1			9
 
-void InitPWM0 (uint32_t MR0, uint32_t PR, uint32_t MR1);
-void SetPWM0 (uint32_t MR0, uint32_t PR, uint32_t MR1);
+void InitPWM0	(const uint32_t MR0, const uint32_t PR, const uint32_t MR1);
+void SetPWM0	(const uint32_t MR0, const uint32_t PR, const uint32_t MR1);
 /*****************************************************************************
 End Of File
 ******************************************************************************/

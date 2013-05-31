@@ -12,10 +12,10 @@ LPC177x_8x_systick.h basic definitions
 
 #define IR0_MR0INT0	0
 
-void TIMER0_Init(uint32_t prescaler, uint32_t match0);
-void delay_us (uint16_t usecond);
-void delay_ms (uint16_t msecond);
-void delay_sec (uint16_t second);
+void	TIMER0_Init	(const uint32_t prescaler, const uint32_t match0);
+void	delay_us		(const uint16_t usecond);
+void	delay_ms		(const uint16_t msecond);
+void	delay_sec		(const uint16_t second);
 /*****************************************************************************
 End Of File
 ******************************************************************************/

@@ -32,9 +32,9 @@ int main(void)
 	while (1) 
 	{ 
 		BMP085_read_sensor(&BMP085_CAL_DATA,&temperature,&pressure,3);
-		UART0_dbg_dec(temperature,3);
+		UART0_dbg_dec((uint32_t)temperature,3);
 		UART0_dbg_msg (" = temperature in 0.1C; ");
-		UART0_dbg_dec(pressure,6);
+		UART0_dbg_dec((uint32_t)pressure,6);
 		UART0_dbg_msg (" = pressure in Pa, oss=3 ");	
 		
 		HMC5883L_read_sensor(&RawMag[0],&RawMag[1],&RawMag[2]);

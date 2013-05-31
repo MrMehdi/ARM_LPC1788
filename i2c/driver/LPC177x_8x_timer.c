@@ -1,7 +1,7 @@
 #include "lpc177x_8x_timer.h"
 
 //Init Timer0 with prescaller and match0 values
-void TIMER0_Init(uint32_t prescaler, uint32_t match0)
+void TIMER0_Init(const uint32_t prescaler, const uint32_t match0)
 {
 	//Enbale Timer0
 	LPC_SC->PCONP|=(1<<PCONP_PCTIM0);
@@ -14,8 +14,10 @@ void TIMER0_Init(uint32_t prescaler, uint32_t match0)
 }
 
 //Delay in microseconds
-void delay_us (uint16_t usecond)
+void delay_us (const uint16_t us)
 { 
+	uint16_t usecond;
+	usecond = us;
 	TIMER0_Init(1,29);
 	while (usecond>0)
 	{
@@ -26,8 +28,10 @@ void delay_us (uint16_t usecond)
 }
 
 //Delay in miliseconds
-void delay_ms (uint16_t msecond)
-{
+void delay_ms (const uint16_t ms)
+{	
+	uint16_t msecond;
+	msecond = ms;
 	TIMER0_Init(1,29999);
 	while (msecond>0)
 	{
@@ -38,8 +42,10 @@ void delay_ms (uint16_t msecond)
 }
 
 //Delay in seconds
-void delay_sec (uint16_t second)
+void delay_sec (const uint16_t s)
 {
+	uint16_t second;
+	second = s;
 	TIMER0_Init(1,29999999);
 	while (second>0)
 	{
