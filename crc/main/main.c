@@ -15,17 +15,27 @@ int main(void)
 	" Data block (ASCII):\n\r ");
 	UART0_dbg_msg (BlockData);
 	UART0_dbg_msg ("\n\r********************************************************************************\n\r");
-	while (CRC_Init(CRC_POLY_CRCCCITT))
-		UART0_dbg_msg ("CRC_Init exceprion\n\r");
-	UART0_dbg_msg ("CRC-CCITT Result: ");
-	UART0_dbg_hex32 (CRC_CalcBlockChecksum(BlockData, BLOCK_SIZE, CRC_WR_8BIT));
-	while(CRC_Init(CRC_POLY_CRC16))
-		UART0_dbg_msg ("CRC_Init exceprion\n\r");
-	UART0_dbg_msg ("CRC-16 Result: ");
-	UART0_dbg_hex32 (CRC_CalcBlockChecksum(BlockData, BLOCK_SIZE, CRC_WR_8BIT));
-	while (CRC_Init(CRC_POLY_CRC32))
-		UART0_dbg_msg ("CRC_Init exceprion\n\r");
-	UART0_dbg_msg ("CRC-32 Result: ");
-	UART0_dbg_hex32 (CRC_CalcBlockChecksum(BlockData, BLOCK_SIZE, CRC_WR_8BIT));		
+	
+	if (CRC_Init(CRC_POLY_CRCCCITT))
+		{
+			UART0_dbg_msg ("CRC-CCITT Result: ");
+			UART0_dbg_hex32 (CRC_CalcBlockChecksum(BlockData, BLOCK_SIZE, CRC_WR_8BIT));
+		}
+	else UART0_dbg_msg ("CRC_Init exceprion\n\r");
+
+	if (CRC_Init(CRC_POLY_CRC16))
+		{
+			UART0_dbg_msg ("CRC-16 Result: ");
+			UART0_dbg_hex32 (CRC_CalcBlockChecksum(BlockData, BLOCK_SIZE, CRC_WR_8BIT));			
+		}
+	else UART0_dbg_msg ("CRC_Init exceprion\n\r");
+		
+	if (CRC_Init(CRC_POLY_CRC32))
+		{
+			UART0_dbg_msg ("CRC-32 Result: ");
+			UART0_dbg_hex32 (CRC_CalcBlockChecksum(BlockData, BLOCK_SIZE, CRC_WR_8BIT));			
+		}
+	else UART0_dbg_msg ("CRC_Init exceprion\n\r");
+		
 	while (1);
 }

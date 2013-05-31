@@ -4,7 +4,7 @@
 volatile CRC_Type crc_cur_type;
 
 //init internal CRC module
-unsigned char CRC_Init(CRC_Type CRCType)
+uint8_t CRC_Init(CRC_Type CRCType)
 {
 	if(CRCType == CRC_POLY_CRCCCITT)
 	{
@@ -25,8 +25,8 @@ unsigned char CRC_Init(CRC_Type CRCType)
 		LPC_CRC->SEED = 0xFFFFFFFF;
 		crc_cur_type = CRC_POLY_CRC32;
 	}
-	else return 1;
-	return 0;
+	else return 0;
+	return 1;
 }
 
 //reset CRC 
