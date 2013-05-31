@@ -4,7 +4,7 @@
 volatile CRC_Type crc_cur_type;
 
 //init internal CRC module
-uint8_t CRC_Init(CRC_Type CRCType)
+uint8_t CRC_Init(const CRC_Type CRCType)
 {
 	if(CRCType == CRC_POLY_CRCCCITT)
 	{
@@ -38,7 +38,7 @@ void CRC_Reset(void)
 }
 
 //calculate CRC of data variable
-uint32_t CRC_CalcDataChecksum(uint32_t data, CRC_WR_SIZE SizeType)
+uint32_t CRC_CalcDataChecksum(const uint32_t data, const CRC_WR_SIZE SizeType)
 {
 	if(SizeType == CRC_WR_8BIT)					LPC_CRC->WR_DATA_BYTE = (uint8_t)data;
 	else if(SizeType == CRC_WR_16BIT)		LPC_CRC->WR_DATA_WORD = (uint16_t)data;
@@ -47,8 +47,10 @@ uint32_t CRC_CalcDataChecksum(uint32_t data, CRC_WR_SIZE SizeType)
 }
 
 //calculate CRC of data block
-uint32_t CRC_CalcBlockChecksum(void *blockdata, uint32_t blocksize, CRC_WR_SIZE SizeType)
-{
+uint32_t CRC_CalcBlockChecksum(const void *blockdata, const uint32_t blocksz, const CRC_WR_SIZE SizeType)
+{			
+	uint32_t blocksize;
+	blocksize=blocksz;
 	if(SizeType == CRC_WR_8BIT)
 		{
 			uint8_t * data;
